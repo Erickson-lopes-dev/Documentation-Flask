@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, url_for
 
 app = Flask(__name__)
 
@@ -27,6 +27,22 @@ def show_post(post_id):
 def show_subpath(subpath):
     return f'Subpath {subpath}'
 
+
+@app.route('/projects/')
+def projects():
+    return 'The project page'
+
+
+@app.route('/about')
+def about():
+    return 'The about page'
+
+
+with app.test_request_context():
+    print(url_for('index'))
+    print(url_for('login'))
+    print(url_for('login', next='/'))
+    print(url_for('profile', username='John Doe'))
 
 if __name__ == '__main__':
     app.run(debug=True)
