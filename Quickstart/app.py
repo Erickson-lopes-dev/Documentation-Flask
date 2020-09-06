@@ -8,3 +8,6 @@ def hello_world():
     return 'Olá, Mundo'
 
 
+@app.route('/hello')
+def hello():
+    return 'Hello'
