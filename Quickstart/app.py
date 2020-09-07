@@ -1,4 +1,5 @@
 from flask import Flask, url_for, request, render_template
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -76,6 +77,16 @@ def login():
 @app.route('/template/erick')
 def templates(name=None):
     return render_template('template.html', name=name)
+
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    if request.method == 'POST':
+        f = request.files['image']
+        f.save('/Imagens' + secure_filename(f.filename))
+        return render_template('img.html', message='Imagem Salva')
+
+    return render_template('img.html')
 
 
 if __name__ == '__main__':
