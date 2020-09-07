@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request
+from flask import Flask, url_for, request, render_template
 
 app = Flask(__name__)
 
@@ -57,6 +57,11 @@ def login():
 #     print(url_for('login'))
 #     print(url_for('login', next='/'))
 #     print(url_for('profile', username='John Doe'))
+
+@app.route('/template/')
+@app.route('/template/erick')
+def templates(name=None):
+    return render_template('template.html', name=name)
 
 
 if __name__ == '__main__':
