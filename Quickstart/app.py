@@ -89,5 +89,11 @@ def upload():
     return render_template('img.html')
 
 
+@app.route('/cookie')
+def cookie():
+    username = request.cookies.get('username')
+    return render_template('cookie.html', user=username)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
