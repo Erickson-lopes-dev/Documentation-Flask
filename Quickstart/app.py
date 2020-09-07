@@ -40,10 +40,23 @@ def about():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    user, pwd = 'erick', 'admin'
+    error = 'Usuário não encontrado'
+
     if request.method == "POST":
-        return 'Logando'
+        username = request.form['username']
+        password = request.form['password']
+
+        if str(username) == user and str(password) == pwd:
+            print(username, password)
+            return render_template('template.html', username=username, password=password)
+
+        else:
+            print(error)
+            return render_template('login.html', error=error)
+
     else:
-        return 'Login'
+        return render_template('login.html')
 
 
 # with app.test_request_context():
@@ -58,6 +71,7 @@ def login():
 #     print(url_for('login', next='/'))
 #     print(url_for('profile', username='John Doe'))
 
+# renderizando templates
 @app.route('/template/')
 @app.route('/template/erick')
 def templates(name=None):
