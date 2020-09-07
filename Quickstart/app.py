@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request, render_template
+from flask import Flask, url_for, request, render_template, abort, redirect, jsonify, session
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -93,6 +93,23 @@ def upload():
 def cookie():
     username = request.cookies.get('username')
     return render_template('cookie.html', user=username)
+
+
+@app.route('/error')
+def error():
+    abort(404)
+    redirect(url_for(cookie))
+
+
+users = {
+    "username": 'user.username',
+    "theme": 'user.theme',
+}
+
+
+@app.route('/api')
+def me_api():
+    return jsonify(users)
 
 
 if __name__ == '__main__':
